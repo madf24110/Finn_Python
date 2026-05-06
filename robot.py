@@ -16,15 +16,7 @@ def show_progress():
     if obstacle_count < 4:
         eyes.set_both(*eye_colours[0])
         print("---Obstacle Number {}---".format(obstacle_count))
-    elif obstacle_count >= 4:
-        print("----Finished----")
-        eyes.set_both(*eye_colours[1])
-        time.sleep(0.3)
-        eyes.off
-        time.sleep(0.3)
-        eyes.set_both(*eye_colours[1])
-        
-
+       
 def choose_move():
     global distance
     global warning_distance
@@ -50,6 +42,11 @@ def choose_move():
 
 while obstacle_count < number_of_obstacles:
     choose_move()
-
+print("----Finished----")
+eyes.set_both(*eye_colours[1])
+time.sleep(0.4)
+eyes.set_both(*eye_colours[2])
+time.sleep(0.4)
+eyes.set_both(*eye_colours[1])
 # Finish safely when you are done.
 stop_project_robot()
