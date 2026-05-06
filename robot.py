@@ -3,18 +3,27 @@ from lesson_header import *
 # Variables
 number_of_obstacles = 4
 obstacle_count = 0
-warning_distance = 15
-eye_colours = [(255, 0, 0), (0, 255, 0), (0, 0, 255)]
+warning_distance = 18
+eye_colours = [
+    (255, 0, 0),
+    (0, 255, 0),
+    (0, 0, 255)
+]
 direction = 0
 
 # Function ideas
 def show_progress():
     if obstacle_count < 4:
-        eyes.set_both(255, 0, 0)
+        eyes.set_both(*eye_colours[0])
         print("---Obstacle Number {}---".format(obstacle_count))
     elif obstacle_count >= 4:
-        eyes.set_both(0, 255, 0)
         print("----Finished----")
+        eyes.set_both(*eye_colours[1])
+        time.sleep(0.3)
+        eyes.off
+        time.sleep(0.3)
+        eyes.set_both(*eye_colours[1])
+        
 
 def choose_move():
     global distance
@@ -24,15 +33,17 @@ def choose_move():
     distance = sonar.get_distance_cm(filtered=True)
     print("Distance is {}cm".format(distance))
     if distance > warning_distance:
-        eyes.set_both(0, 0, 255)
+        eyes.set_both(*eye_colours[2])
         moves.forward(0.5)
     else:
         obstacle_count += 1
         show_progress()
         if direction == 0:
+            print("Direction = {}, moving right".format(direction))
             moves.move_right(1.6)
             direction += 1
         else:
+            print("Direction = {}, moving left".format(direction))
             moves.move_left(1.6)
             direction -= 1
         
